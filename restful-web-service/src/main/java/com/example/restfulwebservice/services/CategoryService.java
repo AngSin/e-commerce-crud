@@ -26,7 +26,7 @@ public class CategoryService {
     }
 
     @Cacheable(value = "globalCache")
-    public List<Category> retrieveAllByParentCategoryId(long parentCategoryId) {
+    public List<Category> retrieveAllByParentCategoryId(Long parentCategoryId) {
         return categoryRepository.findAllByParentCategoryId(parentCategoryId);
     }
 

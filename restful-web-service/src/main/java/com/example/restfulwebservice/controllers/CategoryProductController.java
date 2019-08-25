@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Api(value = "Category & Product", tags = { "Category", "Product" })
 @RestController
 public class CategoryProductController {
@@ -38,7 +39,7 @@ public class CategoryProductController {
 
     @GetMapping("/categories")
     public List<Category> retrieveAllCategories() {
-        return categoryService.retrieveAll();
+        return categoryService.retrieveAllByParentCategoryId(null);
     }
 
     @GetMapping("/categories/{id}")

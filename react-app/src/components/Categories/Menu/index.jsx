@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
-import Menu from "@material-ui/core/Menu";
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { Table } from 'semantic-ui-react';
 
 class CategoriesMenu extends Component {
-  componentDidMount() {
-    axios.get("http://localhost:8080/categories");
+  render = () => {
+    const {
+      categoriesReducer: {
+        data,
+        dataByParentCategoryId,
+      },
+    } = this.props;
+
+    if (!data.length) return <div />;
+
+    return (
+      <Table>
+
+      </Table>
+    );
   }
-
-  render = () => (
-    <Menu>
-
-    </Menu>
-  );
 }
 
-export default CategoriesMenu;
+const mapStateToProps = state => ({
+  categoriesReducer: state.categories,
+});
+
+export default connect(mapStateToProps) (CategoriesMenu);

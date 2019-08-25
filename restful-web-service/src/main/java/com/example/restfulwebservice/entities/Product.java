@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel("Product")
 @Entity
+@JsonIgnoreProperties("category.children")
 @Getter
 @Setter
 public class Product {
@@ -23,6 +25,7 @@ public class Product {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonProperty("categoryId")
     private Category category;
 
     @NotNull
@@ -43,4 +46,8 @@ public class Product {
 
     @NotNull
     private Double priceInEuros;
+
+    public Long getCategory() {
+        return category.getId();
+    }
 }

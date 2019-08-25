@@ -28,6 +28,10 @@ public class Category {
     @Column(name = "parentCategoryId")
     private Long parentCategoryId;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parentCategoryId", nullable = true)
+    private List<Category> children;
+
     private String description;
 
     @OneToMany(mappedBy = "category")

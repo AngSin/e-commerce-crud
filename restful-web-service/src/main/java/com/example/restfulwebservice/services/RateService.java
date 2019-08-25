@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +25,6 @@ public class RateService {
     }
 
     public Rate create() throws IOException {
-        System.out.println("Calling fixer service");
         URL url = new URL("http://data.fixer.io/api/latest?access_key=feaf7a765fa1194aa58837194d1363fa");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
