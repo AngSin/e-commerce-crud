@@ -21,16 +21,6 @@ export const handleRequest = (state, action) => ({
 
 export const handleRetrieveSuccess = (state, action) => ({
   data: action.data,
-  dataByParentCategoryId: action.data.reduce( // TODO
-    (dataByParentCategoryId, entity) => ({
-      ...dataByParentCategoryId,
-      [entity.parentCategoryId]: [
-        ...(dataByParentCategoryId[entity.parentCategoryId] || []),
-        entity,
-      ],
-    }),
-    {},
-  ),
   requests: {
     ...state.requests,
     [action.id]: {
