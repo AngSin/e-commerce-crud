@@ -1,4 +1,5 @@
 restful-web-service/.mvn
+restful-web-service/target
 
 react-app/node_modules
 react-app/build

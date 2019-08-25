@@ -1,11 +1,13 @@
 package com.example.restfulwebservice.controllers;
 
+import com.example.restfulwebservice.entities.Rate;
 import com.example.restfulwebservice.exceptions.BadRequestException;
 import com.example.restfulwebservice.exceptions.NotFoundException;
 import com.example.restfulwebservice.entities.Category;
 import com.example.restfulwebservice.entities.Product;
 import com.example.restfulwebservice.services.CategoryService;
 import com.example.restfulwebservice.services.ProductService;
+import com.example.restfulwebservice.services.RateService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Api(value = "Category & Product", description = "REST API for categories and their products.", tags = { "Category", "Product" })
+@Api(value = "Category & Product", tags = { "Category", "Product" })
 @RestController
 public class CategoryProductController {
     @Autowired
@@ -26,6 +32,9 @@ public class CategoryProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private RateService rateService;
 
     @GetMapping("/categories")
     public List<Category> retrieveAllCategories() {
@@ -96,13 +105,48 @@ public class CategoryProductController {
         return optionalProduct.get();
     }
 
+    public Double getTodaysPriceInEuros(Product product) throws IOException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String today = dateFormat.format(date); // date in fixer.io format
+
+        Rate rate;
+        Optional<Rate> optionalRate = rateService.retrieve(today);
+
+        // if today's rate was fetched earlier use it, otherwise fetch new one
+        if (optionalRate.isPresent()) {
+            rate = optionalRate.get();
+        } else {
+            rate = rateService.create();
+        }
+
+        String currency = product.getCurrency().toString();
+        Double price = product.getPrice();
+
+        return price / rate.getCurrencyRate(currency);
+    }
+
+    @PostMapping("/categories/{id}/products")
+    public Product createProduct(@PathVariable long id, @RequestBody  Product product) throws IOException {
+        Optional<Category> optionalCategory = categoryService.retrieve(id);
+        if (!optionalCategory.isPresent()) {
+            throw new NotFoundException(String.format("Category not found: %d", id));
+        }
+
+        product.setPriceInEuros(getTodaysPriceInEuros(product));
+        product.setCategory(optionalCategory.get());
+
+        return productService.create(product);
+    }
+
     @PatchMapping("/categories/{categoryId}/products/{productId}")
-    public Product updateProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody Product newProduct) {
+    public Product updateProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody Product newProduct) throws IOException {
         Product product = checkForCategoryProductAndReturnProduct(categoryId, productId);
         product.setName(newProduct.getName());
         product.setDescription(newProduct.getDescription());
         product.setCurrency(newProduct.getCurrency());
         product.setPrice(newProduct.getPrice());
+        product.setPriceInEuros(getTodaysPriceInEuros(product));
         return productService.update(product);
     }
 
@@ -112,16 +156,5 @@ public class CategoryProductController {
 
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         productService.delete(productId);
-    }
-
-    @PostMapping("/categories/{id}/products")
-    public Product createProduct(@PathVariable long id, @Valid @RequestBody  Product product) {
-        Optional<Category> optionalCategory = categoryService.retrieve(id);
-        if (!optionalCategory.isPresent()) {
-            throw new NotFoundException(String.format("Category not found: %d", id));
-        }
-
-        product.setCategory(optionalCategory.get());
-        return productService.create(product);
     }
 }
