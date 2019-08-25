@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/e-commerce-crud.iml" filepath="$PROJECT_DIR$/.idea/e-commerce-crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/restful-web-service/restful-web-service.iml" filepath="$PROJECT_DIR$/restful-web-service/restful-web-service.iml" />
     </modules>
   </component>
 </project>

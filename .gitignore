@@ -1,0 +1,6 @@
+restful-web-service/.mvn
+
+react-app/node_modules
+react-app/build
+
+.idea
