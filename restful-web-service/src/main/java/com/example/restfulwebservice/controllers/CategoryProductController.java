@@ -16,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -66,6 +67,27 @@ public class CategoryProductController {
         }
 
         return categoryService.create(category);
+    }
+
+    @PatchMapping("/categories/{id}")
+    public Category updateCategory(@Valid @RequestBody Category category, @PathVariable Long id, HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_CREATED);
+
+        if (category.getParentCategoryId() == null) {
+            return categoryService.update(category);
+        }
+
+        Optional<Category> optionalCategory = categoryService.retrieve(id);
+
+        if (!optionalCategory.isPresent()) {
+            throw new BadRequestException(String.format("Category with id: %d not found", id));
+        }
+
+        Category oldCategory = optionalCategory.get();
+        oldCategory.setDescription(category.getDescription());
+        oldCategory.setName(category.getName());
+
+        return categoryService.update(oldCategory);
     }
 
     @DeleteMapping("/categories/{id}")
