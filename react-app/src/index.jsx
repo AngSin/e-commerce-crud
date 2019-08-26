@@ -7,6 +7,7 @@ import store from './store';
 import 'semantic-ui-css/semantic.min.css'
 import './index.css';
 import Categories from './components/Categories';
+import Products from './components/Products';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -14,7 +15,7 @@ ReactDOM.render(
     <>
       <Router>
         <Route exact path="/" component={Categories} />
-        <Route path="/:id" render={() => <div>PRODUCTS</div>} />
+        <Route path="/:id" component={Products} />
       </Router>
     </>
   </Provider>,

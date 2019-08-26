@@ -6,18 +6,29 @@ import {
   buildBreadcrumbs,
   buildBreadcrumbsUrl,
   getCategory,
-} from "../utils";
+} from "../../utils";
 
 class CategoriesTable extends Component {
   constructor(props) {
     super(props);
-    const { location: { pathname, search } } = props;
+    const {
+      location: { pathname, search },
+      categoriesReducer: { data: categoriesTree },
+    } = props;
     const urlSearchParams = new URLSearchParams(search);
-    const activeCategory = urlSearchParams.get("active");
+    const activeCategoryId = Number(urlSearchParams.get("active"));
+    const category = getCategory(categoriesTree, activeCategoryId);
+    const categoriesChain = [];
+    if (category) categoriesChain.push(...buildBreadcrumbs(categoriesTree, category));
+    console.log(categoriesChain);
     this.state = {
-      openCategoriesById: {
-        [activeCategory]: true,
-      },
+      openCategoriesById: categoriesChain.reduce(
+        (openCategoriesById, category) => ({
+          ...openCategoriesById,
+          [category.id]: true,
+        }),
+        {},
+      ),
     };
   }
 
