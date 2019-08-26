@@ -1,16 +1,38 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Button, Icon, Popup, Table } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import {
+  buildBreadcrumbs,
+  buildBreadcrumbsUrl,
+  getCategory,
+} from "../utils";
 
 class CategoriesTable extends Component {
-  state = {
-    openCategoriesById: {},
-  };
+  constructor(props) {
+    super(props);
+    const { location: { pathname, search } } = props;
+    const urlSearchParams = new URLSearchParams(search);
+    const activeCategory = urlSearchParams.get("active");
+    this.state = {
+      openCategoriesById: {
+        [activeCategory]: true,
+      },
+    };
+  }
 
   renderTableRow = (categories = [], level = 0) => categories.map(category => {
+    const {
+      location: { pathname, search },
+      categoriesReducer: {
+        data: categoriesTree,
+      },
+    } = this.props;
+    const urlSearchParams = new URLSearchParams(search);
+    const activeCategory = Number(urlSearchParams.get("active"));
     return (
       <Fragment key={category.id}>
-        <Table.Row>
+        <Table.Row active={activeCategory === category.id}>
           <Table.Cell>
             <Button
               basic
@@ -42,6 +64,20 @@ class CategoriesTable extends Component {
             {category.description}
           </Table.Cell>
           <Table.Cell textAlign="right">
+            <Popup
+              trigger={
+                <Button
+                  icon
+                  basic
+                  onClick={() => this.props.history.push({
+                    pathname: buildBreadcrumbsUrl(categoriesTree, category),
+                  })}
+                >
+                  <Icon name="arrow right" color="grey" />
+                </Button>
+              }
+              content="Click to see the products in this category"
+            />
             <Popup
               trigger={
                 <Button
@@ -108,4 +144,4 @@ const mapStateToProps = state => ({
   categoriesReducer: state.categories,
 });
 
-export default connect(mapStateToProps) (CategoriesTable);
+export default withRouter(connect(mapStateToProps) (CategoriesTable));

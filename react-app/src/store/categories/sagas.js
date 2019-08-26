@@ -31,7 +31,7 @@ export function* categoriesCreateSaga({ id, category }) {
     yield put({
       type: CATEGORIES_CREATE_FAIL,
       id,
-      error: e.response.data.message,
+      error: `${e.message}: ${e.response.data.message}`,
     });
   }
 }
@@ -48,7 +48,7 @@ export function* categoriesRetrieveSaga({ id }) {
     yield put({
       type: CATEGORIES_RETRIEVE_FAIL,
       id,
-      error: e.response.data.message,
+      error: `${e.message}: ${e.response.data.message}`,
     });
   }
 }
@@ -65,7 +65,8 @@ export function* categoriesUpdateSaga({ id, category }) {
     yield put({
       type: CATEGORIES_UPDATE_FAIL,
       id,
-      error: e.response.data.message,
+      error: `${e.message}: ${e.response.data.message}`,
+
     });
   }
 }
@@ -83,7 +84,7 @@ export function* categoriesDeleteSaga({ id, categoryId }) {
     yield put({
       type: CATEGORIES_DELETE_FAIL,
       id,
-      error: e.response.data.message,
+      error: `${e.message}: ${e.response.data.message}`,
     });
   }
 }
