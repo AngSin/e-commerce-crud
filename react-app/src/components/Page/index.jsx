@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Dimmer, Loader, Header } from 'semantic-ui-react';
+import { Dimmer, Loader, Header, Segment } from 'semantic-ui-react';
 
 import _ from 'lodash';
 import { categoriesRetrieveAction } from '../../store/categories/actions';
@@ -35,9 +35,11 @@ export const Page = ({
   if (error) {
     return (
       <div style={centerStyled}>
-        <Header>
-          {error}
-        </Header>
+        <Segment>
+          <Header>
+            {error}
+          </Header>
+        </Segment>
       </div>
     );
   }
