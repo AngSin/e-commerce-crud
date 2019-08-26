@@ -38,7 +38,6 @@ export const handleCategoryTreeAdd = (state, action) => ({
   requests: {
     ...state.requests,
     [action.id]: {
-      code: action.code,
       loading: false,
       ok: true,
     },
@@ -71,7 +70,6 @@ export const handleCategoryTreeUpdate = (state, action) => ({
   requests: {
     ...state.requests,
     [action.id]: {
-      code: action.code,
       loading: false,
       ok: true,
     },
@@ -91,15 +89,16 @@ export const handleRequest = (state, action) => ({
 });
 
 export const handleRetrieveSuccess = (state, action) => ({
+  ...state,
   data: action.data,
   requests: {
     ...state.requests,
     [action.id]: {
-      code: action.code,
       loading: false,
       ok: true,
     },
   },
+  queryParams: action.queryParams,
 });
 
 export const handleFailure = (state, action) => ({
@@ -107,11 +106,9 @@ export const handleFailure = (state, action) => ({
   requests: {
     ...state.requests,
     [action.id]: {
-      code: action.code,
       error: action.error,
       loading: false,
       ok: false,
-      subRequests: action.subRequests || [],
     },
   },
 });
@@ -139,7 +136,6 @@ export const handleCategoryTreeDelete = (state, action) => ({
   requests: {
     ...state.requests,
     [action.id]: {
-      code: action.code,
       loading: false,
       ok: true,
     },

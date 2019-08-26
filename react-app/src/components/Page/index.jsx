@@ -9,7 +9,7 @@ import { centerStyled } from './styles';
 
 class Categories extends Component {
   state = {
-    categoriesRetrieveRequestId: this.props.categoriesRetrieveAction().id,
+    categoriesRetrieveRequestId: this.props.fetch ? this.props.categoriesRetrieveAction().id : null,
   };
 
   render = () => {

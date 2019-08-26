@@ -20,7 +20,6 @@ class CategoriesTable extends Component {
     const category = getCategory(categoriesTree, activeCategoryId);
     const categoriesChain = [];
     if (category) categoriesChain.push(...buildBreadcrumbs(categoriesTree, category));
-    console.log(categoriesChain);
     this.state = {
       openCategoriesById: categoriesChain.reduce(
         (openCategoriesById, category) => ({

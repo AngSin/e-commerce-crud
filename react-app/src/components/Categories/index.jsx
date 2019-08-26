@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Table from './Table';
 import AddEditModal from './AddEditModal';
@@ -18,9 +20,15 @@ class Categories extends Component {
       categoryToDelete,
       categoryToEdit,
     } = this.state;
+    const {
+      categoriesReducer: {
+        data,
+        requests,
+      },
+    } = this.props;
 
     return (
-      <Page>
+      <Page fetch={data.length === 0 && _.isEmpty(requests)}>
         {categoryToEdit && (
           <AddEditModal
             categoryToEdit={categoryToEdit}
@@ -49,4 +57,8 @@ class Categories extends Component {
   }
 }
 
-export default Categories;
+const mapStateToProps = state => ({
+  categoriesReducer: state.categories,
+});
+
+export default connect(mapStateToProps)(Categories);
