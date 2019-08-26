@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment } from 'semantic-ui-react';
+import { Container, Pagination, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import Page from '../Page';
 import Breadcrumbs from './Breadcrumbs';
 import Table from './Table';
 
-const defaultSize = 1;
+const defaultSize = 10;
 const defaultPage = 0;
 const defaultOrder = ['name', 'desc'];
 
@@ -62,6 +62,7 @@ export class Products extends Component {
       productsReducer: {
         data,
         requests,
+        metadata,
       },
       location: { search, pathname },
     } = this.props;
@@ -73,11 +74,13 @@ export class Products extends Component {
         <Segment circular={false} inverted>
           <Breadcrumbs />
         </Segment>
+        <br />
         <Table
           setAddingProduct={() => this.setState({ addingProduct: true })}
           setProductToEdit={productToEdit => this.setState({ productToEdit })}
           setProductToDelete={productToDelete => this.setState({ productToDelete })}
         />
+        <br />
       </Page>
     );
   }

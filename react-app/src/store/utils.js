@@ -4,7 +4,7 @@ export const reducerInitialState = {
   data: [],
   dataByParentCategoryId: {},
   requests: {},
-  queryParams: {},
+  metadata: {},
 };
 
 const addToTree = (storedCategories, newCategory) => storedCategories.reduce(
@@ -98,7 +98,7 @@ export const handleRetrieveSuccess = (state, action) => ({
       ok: true,
     },
   },
-  queryParams: action.queryParams,
+  metadata: action.metadata,
 });
 
 export const handleFailure = (state, action) => ({

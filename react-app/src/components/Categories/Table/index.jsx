@@ -80,7 +80,7 @@ class CategoriesTable extends Component {
                   icon
                   basic
                   onClick={() => this.props.history.push({
-                    pathname: buildBreadcrumbsUrl(categoriesTree, category),
+                    pathname: `${buildBreadcrumbsUrl(categoriesTree, category)}?page=0&sort=name,asc`,
                   })}
                 >
                   <Icon name="arrow right" color="grey" />

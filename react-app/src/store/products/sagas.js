@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import _ from 'lodash';
 
 import {
   PRODUCTS_CREATE_REQUEST,
@@ -46,7 +47,7 @@ export function* productsRetrieveSaga({ id, categoryId, queryParams }) {
       type: PRODUCTS_RETRIEVE_SUCCESS,
       id,
       data: data.content,
-      queryParams,
+      metadata: _.omit(data, 'content'),
     });
   } catch(e) {
     yield put({
