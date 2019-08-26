@@ -4,4 +4,4 @@ restful-web-service/target
 react-app/node_modules
 react-app/build
 
-.idea
+/.idea/

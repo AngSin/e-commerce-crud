@@ -7,6 +7,77 @@ export const reducerInitialState = {
   queryParams: {},
 };
 
+const addToTree = (storedCategories, newCategory) => storedCategories.reduce(
+  (categoriesTree, category) => {
+    let updatedCategory = category;
+    if (category.id === newCategory.parentCategoryId) {
+      updatedCategory = {
+        ...category,
+        children: [
+          ...(category.children || []),
+          newCategory,
+        ],
+      };
+    } else if (category.children) {
+      updatedCategory = {
+        ...category,
+        children: addToTree(category.children, newCategory),
+      };
+    }
+    return [
+      ...categoriesTree,
+      updatedCategory,
+    ];
+  },
+  [],
+);
+
+export const handleCategoryTreeAdd = (state, action) => ({
+  ...state,
+  data: addToTree(state.data, action.category),
+  requests: {
+    ...state.requests,
+    [action.id]: {
+      code: action.code,
+      loading: false,
+      ok: true,
+    },
+  },
+});
+
+const updateTree = (storedCategories, updatedCategory) => storedCategories.reduce(
+  (categoriesTree, category) => {
+    if (category.id === updatedCategory.id) {
+      return [
+        ...categoriesTree,
+        updatedCategory,
+      ];
+    } else if (category.children) {
+      return [
+        ...categoriesTree,
+        {
+          ...category,
+          children: updateTree(category.children, updatedCategory),
+        },
+      ];
+    }
+  },
+  [],
+);
+
+export const handleCategoryTreeUpdate = (state, action) => ({
+  ...state,
+  data: updateTree(state.data, action.category),
+  requests: {
+    ...state.requests,
+    [action.id]: {
+      code: action.code,
+      loading: false,
+      ok: true,
+    },
+  },
+});
+
 export const handleRequest = (state, action) => ({
   ...state,
   requests: {
@@ -41,6 +112,36 @@ export const handleFailure = (state, action) => ({
       loading: false,
       ok: false,
       subRequests: action.subRequests || [],
+    },
+  },
+});
+
+const deleteCategoryFromTree = (storedCategories, categoryId) => storedCategories.reduce(
+  (categoriesTree, category) => {
+    if (category.id === categoryId) {
+      return [...categoriesTree];
+    } else if (category.children) {
+      return [
+        ...categoriesTree,
+        {
+          ...category,
+          children: updateTree(category.children, categoryId),
+        },
+      ];
+    }
+  },
+  [],
+);
+
+export const handleCategoryTreeDelete = (state, action) => ({
+  ...state,
+  data: deleteCategoryFromTree(state.data, action.categoryId),
+  requests: {
+    ...state.requests,
+    [action.id]: {
+      code: action.code,
+      loading: false,
+      ok: true,
     },
   },
 });

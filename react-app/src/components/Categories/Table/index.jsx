@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import {Button, Icon, Popup, Table} from 'semantic-ui-react';
+import { Button, Icon, Popup, Table } from 'semantic-ui-react';
 
 class CategoriesTable extends Component {
   state = {
     openCategoriesById: {},
   };
 
-  renderTableRow = (categories, level = 0) => categories.map(category => {
+  renderTableRow = (categories = [], level = 0) => categories.map(category => {
     return (
       <Fragment key={category.id}>
         <Table.Row>
@@ -28,7 +28,7 @@ class CategoriesTable extends Component {
                 margin: 10,
                 marginLeft: level * 40,
               }}
-              disabled={category.children.length === 0}
+              disabled={!category.children || category.children.length === 0}
             >
               <Icon
                 name={
@@ -64,7 +64,7 @@ class CategoriesTable extends Component {
             <Button
               icon
               basic
-              onClick={console.log}
+              onClick={() => this.props.setCategoryToDelete(category)}
             >
               <Icon name="trash" color="red" />
             </Button>

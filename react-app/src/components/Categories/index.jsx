@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Table from './Table';
 import AddEditModal from './AddEditModal';
+import DeleteModal from './DeleteModal';
 
 class Categories extends Component {
   state = {
@@ -28,6 +29,12 @@ class Categories extends Component {
           <AddEditModal
             addingToCategoryId={addingToCategoryId}
             onClose={() => this.setState({ addingToCategoryId: null })}
+          />
+        )}
+        {categoryToDelete && (
+          <DeleteModal
+            categoryToDelete={categoryToDelete}
+            onClose={() => this.setState({ categoryToDelete: null })}
           />
         )}
         <Table

@@ -16,7 +16,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -98,9 +97,9 @@ public class CategoryProductController {
             categoryService.delete(id);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else if(!products.isEmpty()) {
-            throw new BadRequestException("Category could not be deleted since it still has products. Please delete all its products first.");
+            throw new BadRequestException("Category could not be deleted since it still has products. Please select it & delete all its products first.");
         } else  {
-            throw new BadRequestException("Category could not be deleted since it still has products. Please delete all its products first.");
+            throw new BadRequestException("Category could not be deleted since it still has subcategories. Please delete all its subcategories first.");
         }
     }
 

@@ -21,10 +21,32 @@ class AddEditModal extends Component {
       this.props.categoryToEdit : this.emptyCategory,
   };
 
+  componentDidUpdate = () => {
+    const { addEditRequestId } = this.state;
+    const { categoriesReducer } = this.props;
+    const finishedSubmission = _.get(categoriesReducer.requests, `[${addEditRequestId}].ok`);
+    if (finishedSubmission) {
+      this.props.onClose();
+    }
+  };
+
   isFormValid = () => !!this.state.temporaryCategory.name;
 
   hasFormChanged = () =>
     !_.isEqual(this.state.temporaryCategory, (this.props.categoryToEdit ? this.props.categoryToEdit : this.emptyCategory));
+
+  handleSubmit = () => {
+    const {
+      categoriesCreateAction,
+      categoriesUpdateAction,
+      categoriesReducer,
+    } = this.props;
+    const { temporaryCategory } = this.state;
+    const editing = !!this.props.categoryToEdit;
+    const addEditRequestId = editing ? categoriesUpdateAction(temporaryCategory).id : categoriesCreateAction(temporaryCategory).id;
+    this.setState({ addEditRequestId });
+  };
+
 
   render = () => {
     const { categoryToEdit, categoriesReducer, onClose } = this.props;

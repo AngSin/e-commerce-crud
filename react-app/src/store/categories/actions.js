@@ -20,6 +20,7 @@ export const categoriesRetrieveAction = () => ({
 export const categoriesUpdateAction = category => ({
   type: CATEGORIES_UPDATE_REQUEST,
   id: uuid(),
+  category,
 });
 
 export const categoriesDeleteAction = categoryId => ({
