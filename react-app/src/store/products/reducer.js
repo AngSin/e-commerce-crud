@@ -22,7 +22,7 @@ import {
   handleProductCreateSuccess,
   handleProductDeleteSuccess,
   handleProductUpdateSuccess,
-} from './handlers';
+} from './utils';
 
 export default (state = reducerInitialState, action) => {
   switch (action.type) {

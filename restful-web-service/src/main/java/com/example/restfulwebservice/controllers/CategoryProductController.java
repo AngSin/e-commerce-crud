@@ -1,10 +1,10 @@
 package com.example.restfulwebservice.controllers;
 
-import com.example.restfulwebservice.entities.Rate;
+import com.example.restfulwebservice.models.Rate;
 import com.example.restfulwebservice.exceptions.BadRequestException;
 import com.example.restfulwebservice.exceptions.NotFoundException;
-import com.example.restfulwebservice.entities.Category;
-import com.example.restfulwebservice.entities.Product;
+import com.example.restfulwebservice.models.Category;
+import com.example.restfulwebservice.models.Product;
 import com.example.restfulwebservice.services.CategoryService;
 import com.example.restfulwebservice.services.ProductService;
 import com.example.restfulwebservice.services.RateService;

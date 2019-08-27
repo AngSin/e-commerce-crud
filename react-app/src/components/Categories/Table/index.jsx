@@ -117,7 +117,7 @@ class CategoriesTable extends Component {
             </Button>
           </Table.Cell>
         </Table.Row>
-        {this.state.openCategoriesById[category.id] && this.renderTableRow(category.children, level + 1)}
+        {this.state.openCategoriesById[category.id] && category.children && this.renderTableRow(category.children, level + 1)}
       </Fragment>
     );
   });
@@ -128,8 +128,6 @@ class CategoriesTable extends Component {
         data,
       },
     } = this.props;
-
-    if (!data.length) return <div />;
 
     return (
       <Table inverted>
@@ -145,6 +143,21 @@ class CategoriesTable extends Component {
         </Table.Header>
         <Table.Body>
           {this.renderTableRow(data)}
+          <Table.Row>
+            <Table.Cell colSpan={3} textAlign="center">
+              <Button
+                icon
+                fluid
+                primary
+                onClick={() => this.props.setAddingToCategoryId(null)}
+              >
+                Add Root Category&nbsp;
+                <Icon
+                  name="plus"
+                />
+              </Button>
+            </Table.Cell>
+          </Table.Row>
         </Table.Body>
       </Table>
     );

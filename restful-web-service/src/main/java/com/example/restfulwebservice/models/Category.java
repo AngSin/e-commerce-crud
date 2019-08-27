@@ -1,4 +1,4 @@
-package com.example.restfulwebservice.entities;
+package com.example.restfulwebservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;

@@ -1,6 +1,6 @@
 package com.example.restfulwebservice.services;
 
-import com.example.restfulwebservice.entities.Rate;
+import com.example.restfulwebservice.models.Rate;
 import com.example.restfulwebservice.repositories.RateRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

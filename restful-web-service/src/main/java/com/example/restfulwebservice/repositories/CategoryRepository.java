@@ -1,6 +1,6 @@
 package com.example.restfulwebservice.repositories;
 
-import com.example.restfulwebservice.entities.Category;
+import com.example.restfulwebservice.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

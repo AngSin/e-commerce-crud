@@ -1,6 +1,6 @@
 package com.example.restfulwebservice.services;
 
-import com.example.restfulwebservice.entities.Product;
+import com.example.restfulwebservice.models.Product;
 import com.example.restfulwebservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

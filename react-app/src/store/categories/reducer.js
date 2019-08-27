@@ -13,16 +13,24 @@ import {
   CATEGORIES_DELETE_FAIL,
 } from './actionTypes';
 import {
-  handleCategoryTreeAdd,
-  handleCategoryTreeUpdate,
-  handleCategoryTreeDelete,
   handleFailure,
   handleRequest,
   handleRetrieveSuccess,
   reducerInitialState,
 } from '../utils';
+import {
+  handleCategoryTreeAdd,
+  handleCategoryTreeUpdate,
+  handleCategoryTreeDelete,
+} from './utils';
 
-export default (state = reducerInitialState, action) => {
+export default (
+  state = {
+    ...reducerInitialState,
+    dataByParentCategoryId: {},
+  },
+  action,
+) => {
   switch (action.type) {
     case CATEGORIES_CREATE_REQUEST:
       return handleRequest(state, action);

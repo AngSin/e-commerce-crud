@@ -1,16 +1,15 @@
 package com.example.restfulwebservice.controllers;
 
 import com.example.restfulwebservice.APITest;
-import com.example.restfulwebservice.entities.Category;
+import com.example.restfulwebservice.models.Category;
 import com.example.restfulwebservice.services.CategoryService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
 
 public class CategoryProductControllerTest extends APITest {

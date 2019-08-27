@@ -1,6 +1,6 @@
 package com.example.restfulwebservice.services;
 
-import com.example.restfulwebservice.entities.Category;
+import com.example.restfulwebservice.models.Category;
 import com.example.restfulwebservice.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

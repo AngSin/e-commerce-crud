@@ -1,4 +1,4 @@
-package com.example.restfulwebservice.entities;
+package com.example.restfulwebservice.models;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -9,7 +9,7 @@ import Page from '../Page';
 
 class Categories extends Component {
   state = {
-    addingToCategoryId: null,
+    addingToCategoryId: false,
     categoryToDelete: null,
     categoryToEdit: null,
   };
@@ -35,10 +35,10 @@ class Categories extends Component {
             onClose={() => this.setState({ categoryToEdit: null })}
           />
         )}
-        {addingToCategoryId && (
+        {addingToCategoryId !== false && (
           <AddEditModal
             addingToCategoryId={addingToCategoryId}
-            onClose={() => this.setState({ addingToCategoryId: null })}
+            onClose={() => this.setState({ addingToCategoryId: false })}
           />
         )}
         {categoryToDelete && (

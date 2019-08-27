@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Button, Modal } from 'semantic-ui-react';
@@ -17,9 +17,11 @@ export const DeleteModal = ({
   const loading = _.get(deleteRequest, 'loading');
   const finishedSubmission = _.get(deleteRequest, 'ok');
 
-  if (finishedSubmission) {
-    onClose();
-  }
+  useEffect(() => {
+    if (finishedSubmission) {
+      onClose();
+    }
+  }, [finishedSubmission]);
 
   return (
     <Modal size="small" open onClose={onClose}>
