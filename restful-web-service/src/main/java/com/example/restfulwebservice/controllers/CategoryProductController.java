@@ -148,11 +148,11 @@ public class CategoryProductController {
         return price / rate.getCurrencyRate(currency);
     }
 
-    @PostMapping("/categories/{id}/products")
-    public Product createProduct(@PathVariable long id, @RequestBody  Product product) throws IOException {
-        Optional<Category> optionalCategory = categoryService.retrieve(id);
+    @PostMapping("/categories/{categoryId}/products")
+    public Product createProduct(@PathVariable long categoryId, @RequestBody  Product product) throws IOException {
+        Optional<Category> optionalCategory = categoryService.retrieve(categoryId);
         if (!optionalCategory.isPresent()) {
-            throw new NotFoundException(String.format("Category not found: %d", id));
+            throw new NotFoundException(String.format("Category not found: %d", categoryId));
         }
 
         product.setPriceInEuros(getTodaysPriceInEuros(product));
