@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
 import _ from 'lodash';
-import { buildBreadcrumbsUrl, getCategory } from '../../utils';
+import { getCategory } from '../../utils';
 
 export class Breadcrumbs extends Component {
   render = () => {

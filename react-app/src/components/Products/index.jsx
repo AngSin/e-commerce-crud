@@ -59,15 +59,7 @@ export class Products extends Component {
         data: categories,
         requests: categoryRequests,
       },
-      productsReducer: {
-        data,
-        requests,
-        metadata,
-      },
-      location: { search, pathname },
     } = this.props;
-    const categoryIds = pathname.split("/");
-    const parentCategoryId = categoryIds[categoryIds.length - 1];
 
     return (
       <Page fetch={categories.length === 0 && _.isEmpty(categoryRequests)}>
@@ -88,7 +80,6 @@ export class Products extends Component {
 
 const mapStateToProps = state => ({
   categoriesReducer: state.categories,
-  productsReducer: state.products,
 });
 
 const mapDispatchToProps = {

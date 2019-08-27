@@ -80,7 +80,6 @@ export function* categoriesDeleteSaga({ id, categoryId }) {
       categoryId,
     });
   } catch (e) {
-    console.log({ e });
     yield put({
       type: CATEGORIES_DELETE_FAIL,
       id,

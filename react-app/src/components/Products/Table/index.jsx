@@ -33,7 +33,7 @@ export class ProductsTable extends Component {
 
   render = () => {
     const {
-      productsReducer: { data, metadata }
+      productsReducer: { data = [], metadata }
     } = this.props;
     const order = _.get(this.state, 'sort', '').split(',')[1] === 'desc' ? 'descending' : 'ascending';
     const oppositeOrder = order === 'descending' ? 'asc' : 'desc';
