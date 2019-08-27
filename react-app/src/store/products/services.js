@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import { apiUrl } from '../utils';
 
@@ -15,7 +16,7 @@ export const productsRetrieveService = (categoryId, queryParams) => {
 
 export const productsUpdateService = (categoryId, product) => {
   const endpoint = `${apiUrl}/categories/${categoryId}/products/${product.id}`;
-  return axios.patch(endpoint, product);
+  return axios.patch(endpoint, _.omit(product, 'id'));
 };
 
 export const productsDeleteService = (categoryId, productId) => {

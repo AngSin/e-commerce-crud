@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Pagination, Table} from 'semantic-ui-react';
+import { Button, Icon, Pagination, Table } from 'semantic-ui-react';
 import _ from 'lodash';
 
 const paramsToObject = entries => {
@@ -90,7 +90,7 @@ export class ProductsTable extends Component {
           </Table.Header>
           <Table.Body>
             {data.map(product => (
-              <Table.Row>
+              <Table.Row key={product.id}>
                 <Table.Cell>
                   {product.name}
                 </Table.Cell>
@@ -103,11 +103,37 @@ export class ProductsTable extends Component {
                 <Table.Cell>
                   EUR {_.round(product.priceInEuros, 2)}
                 </Table.Cell>
-                <Table.Cell>
-
+                <Table.Cell collapsing>
+                  <Button
+                    icon
+                    basic
+                    onClick={() => this.props.setProductToEdit(product)}
+                  >
+                    <Icon name="edit" color="grey" />
+                  </Button>
+                  <Button
+                    icon
+                    basic
+                    onClick={() => this.props.setProductToDelete(product)}
+                  >
+                    <Icon name="trash" color="grey" />
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             ))}
+            <Table.Row>
+              <Table.Cell colSpan={5} textAlign="center">
+                <Button
+                  icon
+                  primary
+                  fluid
+                  onClick={this.props.setAddingProduct}
+                >
+                  Add product&nbsp;&nbsp;
+                  <Icon name="plus" />
+                </Button>
+              </Table.Cell>
+            </Table.Row>
           </Table.Body>
         </Table>
         <div style={{ width: '100vw', textAlign: 'center' }}>

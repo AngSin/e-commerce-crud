@@ -23,11 +23,12 @@ public class Rate {
 
     public Double getCurrencyRate(String currency) {
         HashMap<String, Double> currencyRateMap= new HashMap<String, Double>();
+        currencyRateMap.put("EUR", this.EUR);
         currencyRateMap.put("CHF", this.chf);
         currencyRateMap.put("GBP", this.gbp);
         currencyRateMap.put("USD", this.usd);
         currencyRateMap.put("INR", this.inr);
-        currencyRateMap.put("cny", this.cny);
+        currencyRateMap.put("CNY", this.cny);
         return currencyRateMap.get(currency);
     }
 }

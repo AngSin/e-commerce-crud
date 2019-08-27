@@ -1,3 +1,21 @@
+import _ from 'lodash';
+
+export const flattenCategories = categoriesTree => categoriesTree.reduce(
+  (flattenedCategories, category) => [
+    ...flattenedCategories,
+    _.omit(category, 'children'),
+    ...flattenCategories(category.children || []),
+  ],
+  [],
+);
+
+export const reducerInitialState = {
+  data: [],
+  dataByParentCategoryId: {},
+  requests: {},
+  metadata: {},
+};
+
 export const getCategory = (categoriesTree = [], categoryId) => {
   const stack = [...categoriesTree];
   let category;

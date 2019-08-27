@@ -173,7 +173,7 @@ public class CategoryProductController {
     }
 
     @DeleteMapping("/categories/{categoryId}/products/{productId}")
-    public void deleteProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody Product product, HttpServletResponse response) {
+    public void deleteProduct(@PathVariable long categoryId, @PathVariable long productId, HttpServletResponse response) {
         checkForCategoryProductAndReturnProduct(categoryId, productId);
 
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);

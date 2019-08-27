@@ -17,8 +17,7 @@ class AddEditModal extends Component {
 
   state = {
     addEditRequestId: null,
-    temporaryCategory: this.props.categoryToEdit ?
-      this.props.categoryToEdit : this.emptyCategory,
+    temporaryCategory: this.props.categoryToEdit || this.emptyCategory,
   };
 
   componentDidUpdate = () => {
@@ -60,7 +59,9 @@ class AddEditModal extends Component {
       <Modal open onClose={onClose}>
         <Modal.Header>{editing ? `Edit Category "${categoryToEdit.name}"` : 'Add Category'}</Modal.Header>
         <Modal.Content>
-          <Modal.Description>After creation, a category's parent category field is uneditable.</Modal.Description>
+          <Modal.Description>
+            After creation, a category's parent category field is uneditable.
+          </Modal.Description>
           <br />
           <br />
           <Input
