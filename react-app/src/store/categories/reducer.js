@@ -24,13 +24,7 @@ import {
   handleCategoryTreeDelete,
 } from './utils';
 
-export default (
-  state = {
-    ...reducerInitialState,
-    dataByParentCategoryId: {},
-  },
-  action,
-) => {
+export default (state = reducerInitialState, action) => {
   switch (action.type) {
     case CATEGORIES_CREATE_REQUEST:
       return handleRequest(state, action);

@@ -1,34 +1,31 @@
 import _ from 'lodash';
 
-const addToTree = (storedCategories, newCategory) => storedCategories.reduce(
-  (categoriesTree, category) => {
-    let addedCategory = category;
-    if (newCategory.parentCategoryId === null) {
+const addToTree = (storedCategories, newCategory) => newCategory.parentCategoryId === null
+  ? storedCategories.concat([newCategory])
+  : storedCategories.reduce(
+    (categoriesTree, category) => {
+      let addedCategory = category;
+      if (category.id === newCategory.parentCategoryId) {
+        addedCategory = {
+          ...category,
+          children: [
+            ...(category.children || []),
+            newCategory,
+          ],
+        };
+      } else if (category.children) {
+        addedCategory = {
+          ...category,
+          children: addToTree(category.children, newCategory),
+        };
+      }
       return [
         ...categoriesTree,
-        newCategory,
+        addedCategory,
       ];
-    } else if (category.id === newCategory.parentCategoryId) {
-      addedCategory = {
-        ...category,
-        children: [
-          ...(category.children || []),
-          newCategory,
-        ],
-      };
-    } else if (category.children) {
-      addedCategory = {
-        ...category,
-        children: addToTree(category.children, newCategory),
-      };
-    }
-    return [
-      ...categoriesTree,
-      addedCategory,
-    ];
-  },
-  [],
-);
+    },
+    [],
+  );
 
 export const handleCategoryTreeAdd = (state, action) => ({
   ...state,
@@ -57,6 +54,11 @@ const updateTree = (storedCategories, updatedCategory) => storedCategories.reduc
           children: updateTree(category.children, updatedCategory),
         },
       ];
+    } else {
+      return [
+        ...categoriesTree,
+        category,
+      ];
     }
   },
   [],
@@ -83,8 +85,13 @@ const deleteCategoryFromTree = (storedCategories, categoryId) => storedCategorie
         ...categoriesTree,
         {
           ...category,
-          children: updateTree(category.children, categoryId),
+          children: deleteCategoryFromTree(category.children, categoryId),
         },
+      ];
+    } else {
+      return [
+        ...categoriesTree,
+        category,
       ];
     }
   },

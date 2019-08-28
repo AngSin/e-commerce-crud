@@ -11,7 +11,6 @@ export const flattenCategories = categoriesTree => categoriesTree.reduce(
 
 export const reducerInitialState = {
   data: [],
-  dataByParentCategoryId: {},
   requests: {},
   metadata: {},
 };

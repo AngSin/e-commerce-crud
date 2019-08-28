@@ -14,7 +14,7 @@ import {
   PRODUCTS_RETRIEVE_SUCCESS, PRODUCTS_UPDATE_FAIL, PRODUCTS_UPDATE_SUCCESS
 } from "../actionTypes";
 
-describe('Normalized device group configs sagas', () => {
+describe('Products sagas', () => {
   let axiosMockAdapter;
   beforeEach(() => {
     axiosMockAdapter = new AxiosMockAdapter(axios);
