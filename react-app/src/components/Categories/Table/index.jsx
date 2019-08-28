@@ -95,6 +95,7 @@ class CategoriesTable extends Component {
                   icon
                   basic
                   onClick={() => this.props.setAddingToCategoryId(category.id)}
+                  className="category-add-icon"
                 >
                   <Icon name="plus" color="grey" />
                 </Button>
@@ -105,6 +106,7 @@ class CategoriesTable extends Component {
               icon
               basic
               onClick={() => this.props.setCategoryToEdit(category)}
+              className="category-edit-icon"
             >
               <Icon name="edit" color="grey" />
             </Button>
@@ -112,6 +114,7 @@ class CategoriesTable extends Component {
               icon
               basic
               onClick={() => this.props.setCategoryToDelete(category)}
+              className="category-delete-icon"
             >
               <Icon name="trash" color="red" />
             </Button>

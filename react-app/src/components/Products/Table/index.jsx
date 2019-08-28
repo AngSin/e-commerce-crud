@@ -108,6 +108,7 @@ export class ProductsTable extends Component {
                     icon
                     basic
                     onClick={() => this.props.setProductToEdit(product)}
+                    className="product-edit-icon"
                   >
                     <Icon name="edit" color="grey" />
                   </Button>
@@ -115,6 +116,7 @@ export class ProductsTable extends Component {
                     icon
                     basic
                     onClick={() => this.props.setProductToDelete(product)}
+                    className="product-delete-icon"
                   >
                     <Icon name="trash" color="grey" />
                   </Button>
@@ -128,6 +130,7 @@ export class ProductsTable extends Component {
                   primary
                   fluid
                   onClick={this.props.setAddingProduct}
+                  className="product-add-icon"
                 >
                   Add product&nbsp;&nbsp;
                   <Icon name="plus" />

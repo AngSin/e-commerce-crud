@@ -1,3 +1,6 @@
+import {applyMiddleware, createStore} from "redux";
+import reducers from "./reducers";
+
 export const apiUrl = "http://localhost:8080";
 
 export const reducerInitialState = {
