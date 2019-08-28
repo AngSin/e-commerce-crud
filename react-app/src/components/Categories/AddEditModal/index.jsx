@@ -75,6 +75,7 @@ class AddEditModal extends Component {
                 name: d.value,
               }
             }))}
+            className="category-name-input"
           />
           <br />
           <Input
