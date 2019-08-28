@@ -1,6 +1,5 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import _ from 'lodash';
 import uuid from 'uuid/v4';
 import { runSaga } from 'redux-saga';
 
