@@ -17,3 +17,12 @@ export const fakeCategoriesTree = [
   },
 ];
 
+export const fakeCategory = {
+  id: 1,
+  parentCategoryId: null,
+  children: [],
+};
+
+export const fakeErrorResponse = {
+  message: 'Custom error',
+};
