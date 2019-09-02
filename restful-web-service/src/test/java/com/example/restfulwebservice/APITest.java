@@ -1,10 +1,14 @@
 package com.example.restfulwebservice;
 
 import com.example.restfulwebservice.repositories.CategoryRepository;
+import com.example.restfulwebservice.services.CategoryService;
+import com.example.restfulwebservice.services.ProductService;
+import com.example.restfulwebservice.services.RateService;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.GetRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,11 +32,20 @@ public class APITest {
 	MockMvc mockMvc;
 
 	@MockBean
+	CategoryService categoryService;
+
+	@MockBean
 	CategoryRepository categoryRepository;
+
+	@MockBean
+	ProductService productService;
+
+	@MockBean
+	RateService rateService;
 
 	@Test
 	public void contextLoads() throws Exception {
-		Mockito.when(categoryRepository.findAll()).thenReturn(
+		Mockito.when(categoryService.retrieveAll()).thenReturn(
 			Collections.emptyList()
 		);
 
@@ -41,9 +54,7 @@ public class APITest {
 				.accept(MediaType.APPLICATION_JSON)
 		).andReturn();
 
-		System.out.println(mvcResult.getResponse());
-
-		Mockito.verify(categoryRepository).findAll();
+		Mockito.verify(categoryService).retrieveAllByParentCategoryId(null);
 	}
 
 	protected GetRequest getRequest(String endpoint) {
